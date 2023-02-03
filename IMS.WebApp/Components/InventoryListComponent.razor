@@ -1,0 +1,22 @@
+﻿@using IMS.CoreBussiness;
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+     <tbody>
+        @foreach (var inv in listInventories)
+        {
+            <tr>
+                <td>@in</td>
+            </tr>
+        }
+     </tbody>
+</table>
+@code {
+    private List<Inventory> listInventories = new List<Inventory>();
+}
