@@ -1,4 +1,5 @@
-﻿@using IMS.CoreBussiness;
+
+@inject IViewInventoriesByNameUserCase ViewInventoriesByNameUseCase
 <table class="table">
     <thead>
         <tr>
@@ -8,15 +9,18 @@
             <th></th>
         </tr>
     </thead>
-     <tbody>
-        @foreach (var inv in listInventories)
-        {
-            <tr>
-                <td>@in</td>
-            </tr>
-        }
-     </tbody>
+    <tbody>
+      <InventoryListItemComponent Inventories="listInventories"></InventoryListItemComponent>
+    </tbody>
 </table>
 @code {
     private List<Inventory> listInventories = new List<Inventory>();
+
+    [Parameter]
+    public string SearchTerm { get; set; } = string.Empty;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        listInventories = (await ViewInventoriesByNameUseCase.ExecuteAsync(this.SearchTerm)).ToList();
+    }
 }

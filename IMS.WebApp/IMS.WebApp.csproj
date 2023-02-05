@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Components\InventoryListComponent.razor" />
+    <Content Remove="Components\InventoryListItemComponent.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,15 +15,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Components\InventoryListComponent.razor" />
+    <UpToDateCheckInput Remove="Components\InventoryListItemComponent.razor" />
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Components\InventoryListComponent.razor" />
+    <_ContentIncludedByDefault Remove="Components\InventoryListItemComponent.razor" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Components\InventoryListComponent.razor" />
+    <None Include="Components\InventoryListItemComponent.razor" />
   </ItemGroup>
 
 </Project>

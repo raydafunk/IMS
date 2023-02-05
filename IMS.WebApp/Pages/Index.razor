@@ -1,7 +1,4 @@
 ﻿@page "/"
-@using IMS.CoreBussiness;
-@using IMS.UseCases.Inventories.Interfaces;
-
 @inject IViewInventoriesByNameUserCase ViewInventoriesByNameUseCase
 
 <PageTitle>Index</PageTitle>
@@ -10,7 +7,7 @@
     @foreach (var inv in _inventories)
     {
         <li> 
-            @inv.InvetoryName
+            @inv.InventoryName
         </li>
     }   
 </u>
