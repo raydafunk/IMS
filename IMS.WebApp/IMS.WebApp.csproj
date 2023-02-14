@@ -6,4 +6,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="Components\InventoryListComponent.razor" />
+    <None Include="Components\InventoryListItemComponent.razor" />
+    <None Include="Components\SearchInventoryComponent.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IMS.Plugins\IMS.Plugins.InMemory\IMS.Plugins.InMemory.csproj" />
+  </ItemGroup>
+
 </Project>

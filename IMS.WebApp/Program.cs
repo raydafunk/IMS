@@ -1,6 +1,8 @@
+using IMS.Plugins.InMemory;
+using IMS.UseCases.Inventories;
+using IMS.UseCases.Inventories.Interfaces;
+using IMS.UseCases.PluginInterfaces;
 using IMS.WebApp.Data;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
+builder.Services.AddSingleton<IInVentoryRespository, InventoryRepository>();
+
+builder.Services.AddTransient<IViewInventoriesByNameUserCase,ViewInventoriesByNameUserCase>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
