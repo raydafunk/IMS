@@ -1,7 +1,8 @@
 ﻿@using IMS.CoreBussiness;
+
 @if (Inventories != null && Inventories.Count > 0)
 {
-    @foreach (var inv in Inventories)
+    foreach (var inv in Inventories)
     {
         <tr>
             <td>@inv.InventoryName</td>
