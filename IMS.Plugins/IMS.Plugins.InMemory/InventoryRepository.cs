@@ -5,7 +5,7 @@ namespace IMS.Plugins.InMemory
 {
     public class InventoryRepository : IInVentoryRespository
     {
-        private List<Inventory> _inventories;
+        private readonly List<Inventory> _inventories;
 
         public InventoryRepository()
         {
@@ -35,6 +35,11 @@ namespace IMS.Plugins.InMemory
             if (string.IsNullOrEmpty(name)) return await Task.FromResult(_inventories);
 
             return _inventories.Where(x => x.InventoryName.Contains(name, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public Task UpdateInventoryAsync(Inventory inventory)
+        {
+            throw new NotImplementedException();
         }
     }
 }

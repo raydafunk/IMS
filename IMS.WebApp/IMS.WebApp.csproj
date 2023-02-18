@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Components\InventoryListComponent.razor" />
-    <None Include="Components\InventoryListItemComponent.razor" />
-    <None Include="Components\SearchInventoryComponent.razor" />
+    <None Include="Components\Inventories\InventoryListComponent.razor" />
+    <None Include="Components\Inventories\InventoryListItemComponent.razor" />
+    <None Include="Components\Inventories\SearchInventoryComponent.razor" />
   </ItemGroup>
 
   <ItemGroup>
