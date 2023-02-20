@@ -70,6 +70,23 @@ namespace IMS.UseCase.Test.Inventories
             inventories.ShouldHaveSingleItem();
         }
 
+        [Fact]
+        public async Task GetInvetoriesByNameAsync_WhenCalled_ShouldHaveEqualInventoriesInList()
+        {
+            IEnumerable<Inventory> inventories = new List<Inventory>() { new Inventory { InventoryId = 1, InventoryName = "fdc   ", Quantity = 10, Price = 2 } };
+            await _repo.GetInvetoriesByNameAsync("Bike Seat");
+
+            inventories.ShouldBe(inventories);
+        }
+        [Fact]
+        public async Task GetInvetoriesByNameAsync_WhenCalled_ShouldContainName()
+        {
+            IEnumerable<Inventory> inventories = new List<Inventory>() { new Inventory { InventoryName = "Bike Seat" } };
+            await _repo.GetInvetoriesByNameAsync("Bike Seat");
+
+            inventories.ShouldBeSameAs(inventories);
+        }
+
 
         private static Inventory MockedInventory
         {
