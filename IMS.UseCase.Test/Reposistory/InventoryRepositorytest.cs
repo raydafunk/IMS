@@ -87,6 +87,24 @@ namespace IMS.UseCase.Test.Inventories
             inventories.ShouldBeSameAs(inventories);
         }
 
+        [Fact]
+        public async Task UpdateInventoryAsyn_WhenCalled_ShouldNotBeNUll()
+        {
+            var inventory = MockedInventory;
+            await _repo.UpdateInventoryAsync(inventory);
+
+            inventory.ShouldNotBeNull();
+        }
+
+        [Fact]
+        public async Task UpdateInventoryAsyn_WheCalled_ShouldNotReturnTheSameObject()
+        {
+            var inventory = MockedInventory;
+            await _repo.UpdateInventoryAsync(inventory);
+
+            inventory.ShouldNotBe(SecondMocckedInventory);
+        }
+
 
         private static Inventory MockedInventory
         {
