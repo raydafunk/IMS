@@ -1,5 +1,5 @@
 ﻿@using IMS.CoreBussiness;
-
+@inject NavigationManager NavigationManager
 @if (Inventories != null && Inventories.Count > 0)
 {
     foreach (var inv in Inventories)
@@ -10,7 +10,7 @@
             <td>@inv.Price.ToString("c")</td>
             <td>
                 <button type="button"
-                class="btn btn-light">
+                class="btn btn-light" @onclick= "@(()=>EditInventory(inv.InventoryId))">
                     Edit
                 </button>
             </td>
@@ -20,5 +20,10 @@
     @code {
     [Parameter]
     public List<Inventory> Inventories { get; set; } = new List<Inventory>();
+
+    private void EditInventory( int inventoryId)
+    {
+        NavigationManager.NavigateTo($"/editinventory/{inventoryId}");
+    }
  }
 }
