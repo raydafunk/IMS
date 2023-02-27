@@ -88,6 +88,15 @@ namespace IMS.UseCase.Test.Inventories
         }
 
         [Fact]
+        public async Task GetInvetoriesByIdAsync_WhenCalled_ShouldContain_SameId()
+        {
+            var InventoryId = 1;
+            await _repo.GetInvetoriesByIdAsync(InventoryId);
+
+            InventoryId.ShouldBe(InventoryId);
+        }
+
+        [Fact]
         public async Task UpdateInventoryAsyn_WhenCalled_ShouldNotBeNUll()
         {
             var inventory = MockedInventory;

@@ -1,5 +1,6 @@
 ﻿using IMS.CoreBussiness;
 using IMS.UseCases.PluginInterfaces;
+using System.Net.WebSockets;
 using System.Security.Cryptography.X509Certificates;
 
 namespace IMS.Plugins.InMemory
@@ -30,6 +31,20 @@ namespace IMS.Plugins.InMemory
 
             return Task.CompletedTask;
         }
+
+        public async Task<Inventory> GetInvetoriesByIdAsync(int inventoryid)
+        {
+            var inventory = await Task.FromResult(_inventories.First(x => x.InventoryId == inventoryid));
+            var newInventory= new Inventory
+            {
+                InventoryId = inventoryid,
+                InventoryName = inventory.InventoryName,
+                Price = inventory.Price,
+                Quantity = inventory.Quantity,
+            };
+            return await Task.FromResult(newInventory);
+        }
+
         //get by name
         public async Task<IEnumerable<Inventory>> GetInvetoriesByNameAsync(string name)
         {
@@ -41,12 +56,12 @@ namespace IMS.Plugins.InMemory
         public Task UpdateInventoryAsync(Inventory inventory)
         {
             // dont allow the same inventories to have the same name
-            if (_inventories.Any(x => x.InventoryId == inventory.InventoryId 
+            if (_inventories.Any(x => x.InventoryId == inventory.InventoryId
                   && x.InventoryName.Equals(inventory.InventoryName, StringComparison.OrdinalIgnoreCase)))
-                 return Task.CompletedTask;
+                return Task.CompletedTask;
 
-           var inv = _inventories.FirstOrDefault(x => x.InventoryId== inventory.InventoryId);
-            if ( inv != null)
+            var inv = _inventories.FirstOrDefault(x => x.InventoryId == inventory.InventoryId);
+            if (inv != null)
             {
                 inv.InventoryName = inventory.InventoryName;
                 inv.Price = inventory.Price;
