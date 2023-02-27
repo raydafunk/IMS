@@ -10,9 +10,8 @@
             <td>@inv.Price.ToString("c")</td>
             <td>
                 <button type="button"
-                class="btn btn-light" @onclick= "@(()=>EditInventory(inv.InventoryId))">
-                    Edit
-                </button>
+                class="btn btn-light" 
+                @onclick= "@(()=> EditInventory(inv.InventoryId))"> Edit</button>
             </td>
         </tr>
     }
@@ -23,7 +22,7 @@
 
     private void EditInventory( int inventoryId)
     {
-        NavigationManager.NavigateTo($"/editinventory/{inventoryId}");
+        NavigationManager.NavigateTo($"/editInventory/{inventoryId}");
     }
  }
 }
