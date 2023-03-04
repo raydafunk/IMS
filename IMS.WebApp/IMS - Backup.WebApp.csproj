@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Components\Inventories\ProductListComponent.razor" />
+    <None Include="Components\Inventories\ProductListItemComponent.razor" />
+    <None Include="Components\Inventories\SearchProductComponent.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\IMS.Plugins\IMS.Plugins.InMemory\IMS.Plugins.InMemory.csproj" />
   </ItemGroup>
 
