@@ -1,0 +1,14 @@
+﻿@page "/products"
+
+<h3>ProudctList</h3>
+<br />
+<SearchProductComponent productNameToSearch="@_searchTerm"></SearchProductComponent>
+
+@code {
+    private string _searchTerm = string.Empty;
+
+    private void OnSearchProduct(string serachTerm)
+    {
+        this._searchTerm = serachTerm;
+    }
+}
