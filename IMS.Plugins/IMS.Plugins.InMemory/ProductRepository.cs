@@ -14,7 +14,24 @@ namespace IMS.Plugins.InMemory
                 new Product(){ProductId = 1, ProductName = "Car", Quantity = 5, Price = 25000},
             };
         }
-        
+
+        public Task AddProductAsync(Product product)
+        {
+            if(_products.Any(x => x.ProductName.Equals(product.ProductName, StringComparison.OrdinalIgnoreCase)))
+                return Task.CompletedTask;
+
+            var maxId = _products.Max(x => x.ProductId);
+            product.ProductId = maxId + 1;
+            _products.Add(product);
+
+            return Task.CompletedTask;
+        }
+
+        public Task<bool> ExistAsync(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// get all the products in the repo
         /// </summary>

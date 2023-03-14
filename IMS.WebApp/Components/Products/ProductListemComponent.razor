@@ -1,5 +1,18 @@
-﻿<h3>ProductListemComponent</h3>
-
+﻿
+@foreach (var prod in Products)
+{
+    <tr>
+        <td>@prod.ProductName</td>
+        <td>@prod.Quantity</td>
+        <td>@prod.Price.ToString("c")</td>
+        <td>
+            <button
+                type="button"
+                class="btn-dark">Edit</button>
+        </td>
+    </tr>
+}
 @code {
-
+    [Parameter]
+    public List<Product> Products { get; set; } = new List<Product>();
 }

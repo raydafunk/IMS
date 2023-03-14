@@ -14,6 +14,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddSingleton<IInVentoryRespository, InventoryRepository>();
+builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 
 builder.Services.AddTransient<IViewInventoriesByNameUserCase, ViewInventoriesByNameUserCase>();
 builder.Services.AddTransient<IAddInventoryUseCase, AddInventoryUseCase>();

@@ -9,14 +9,13 @@
         </tr>
     </thead>
     <tbody>
-        <ProductListemComponent Inventories="listProducts"></ProductListemComponent>
+        <ProductListemComponent Products="listProducts"></ProductListemComponent>
     </tbody>
 </table>
 
 @code {
 
-    [Parameter]
-    public List<Product> listProducts { get; set; } = new List<Product>();
+    private List<Product> listProducts { get; set; } = new List<Product>();
 
     [Parameter]
     public string SearchTerm { get; set; } = string.Empty;

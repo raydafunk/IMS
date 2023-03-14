@@ -2,7 +2,10 @@
 
 <h3>ProudctList</h3>
 <br />
-<SearchProductComponent productNameToSearch="@_searchTerm"></SearchProductComponent>
+<SearchProductComponent 
+    OnProductSearchInventory="OnSearchProduct"></SearchProductComponent>
+<br />
+<ProductListComponent SearchTerm="@_searchTerm"></ProductListComponent>
 
 @code {
     private string _searchTerm = string.Empty;
