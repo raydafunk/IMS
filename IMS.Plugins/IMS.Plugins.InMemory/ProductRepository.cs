@@ -27,11 +27,6 @@ namespace IMS.Plugins.InMemory
             return Task.CompletedTask;
         }
 
-        public Task<bool> ExistAsync(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// get all the products in the repo
         /// </summary>
