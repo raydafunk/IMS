@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using IMS.CoreBussiness;
+using System.ComponentModel.DataAnnotations;
 
 namespace IMS.UseCases.Products
 {
@@ -15,5 +16,7 @@ namespace IMS.UseCases.Products
 
         [Range(0, int.MaxValue, ErrorMessage = "Price must be greater then or equal to 0")]
         public double Price { get; set; }
+
+        public List<ProductInventory>? ProductInventories { get; set; }
     }
 }
