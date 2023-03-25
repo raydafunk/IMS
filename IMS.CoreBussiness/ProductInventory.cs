@@ -8,7 +8,7 @@ namespace IMS.CoreBussiness
 
         public Product? Product { get; set; }
         public int InventoryId { get; set; }
-        public Product? Inventory { get; set; }
+        public Inventory? Inventory { get; set; }
         public int InventoryQuantity { get; set; }
     }
 }
