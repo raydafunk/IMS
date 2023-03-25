@@ -7,13 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Components\Inventories\InventoryListComponent.razor" />
-    <None Include="Components\Inventories\InventoryListItemComponent.razor" />
-    <None Include="Components\Inventories\SearchInventoryComponent.razor" />
+    <Content Remove="Components\SearchandDisplayInventoriesComponent.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IMS.Plugins\IMS.Plugins.InMemory\IMS.Plugins.InMemory.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\SearchandDisplayInventoriesComponent.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Components\SearchandDisplayInventoriesComponent.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Components\Inventories\SearchandDisplayInventoriesComponent.razor" />
   </ItemGroup>
 
 </Project>
