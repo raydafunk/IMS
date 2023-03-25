@@ -1,4 +1,5 @@
 ﻿using IMS.CoreBussiness;
+using IMS.CoreBussiness.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace IMS.UseCases.Products
@@ -17,6 +18,7 @@ namespace IMS.UseCases.Products
         [Range(0, int.MaxValue, ErrorMessage = "Price must be greater then or equal to 0")]
         public double Price { get; set; }
 
+        [Proudct_EnsurePriceIsGreaterThanInventorisCost]
         public List<ProductInventory> ProductInventories { get; set; } = new List<ProductInventory>();
 
         public void AddInventory(Inventory inventory)

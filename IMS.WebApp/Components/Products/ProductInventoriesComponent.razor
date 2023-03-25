@@ -1,4 +1,6 @@
-﻿ <SearchandDisplayInventoriesComponent OnInventorySelected="OnInventorySelected"></SearchandDisplayInventoriesComponent>
+﻿<div class="card">
+  <div class="card-body">
+ <SearchandDisplayInventoriesComponent OnInventorySelected="OnInventorySelected"></SearchandDisplayInventoriesComponent>
 @if(this.Product.ProductInventories != null && this.Product.ProductInventories.Count > 0)
 {
     <table class="table-responsive">
@@ -31,6 +33,8 @@
         </tbody>
     </table>
 }
+    </div>
+</div>
 
 @code {
     [Parameter]
