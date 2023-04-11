@@ -22,6 +22,7 @@ builder.Services.AddTransient<IEditInventoryUseCase, EditInventoryUseCase>();
 builder.Services.AddTransient<IViewInventoryByIdUseCase, ViewInventoryByIdUseCase>();
 builder.Services.AddTransient<IViewProductByNameUserCase, ViewProductByNameUserCase>();
 builder.Services.AddTransient<IAddProductUseCase, AddProductUseCase>();
+builder.Services.AddTransient<IEditProdcutUserCase, EditProdcutUserCase>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
