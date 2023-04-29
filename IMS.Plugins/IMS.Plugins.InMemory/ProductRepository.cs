@@ -46,13 +46,13 @@ namespace IMS.Plugins.InMemory
                 newProduct.Price = product.Price;
                 newProduct.Quantity = product.Quantity;
                 newProduct.ProductInventories = new List<ProductInventory>();
-                CheckProductInventoris(product, newProduct);
+                CheckProductListInventoris(product, newProduct);
             }
         }
 
-        private static void CheckProductInventoris(Product? product, Product newProduct)
+        private static void CheckProductListInventoris(Product? product, Product newProduct)
         {
-            /// checking to see if the productinventories  is not empty then build up theProductInventoris
+            /// checking to see if the productListinventories  is not empty then build up theProductListInventoris
             if (product!.ProductInventories != null && product.ProductInventories.Count > 0)
             {
                 foreach (var productInventory in product.ProductInventories)
