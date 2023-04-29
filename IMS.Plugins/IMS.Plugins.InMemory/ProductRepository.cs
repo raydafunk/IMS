@@ -1,4 +1,5 @@
-﻿using IMS.UseCases.PluginInterfaces;
+﻿using IMS.CoreBussiness;
+using IMS.UseCases.PluginInterfaces;
 using IMS.UseCases.Products;
 
 namespace IMS.Plugins.InMemory
@@ -17,7 +18,7 @@ namespace IMS.Plugins.InMemory
 
         public Task AddProductAsync(Product product)
         {
-            if(_products.Any(x => x.ProductName.Equals(product.ProductName, StringComparison.OrdinalIgnoreCase)))
+            if (_products.Any(x => x.ProductName.Equals(product.ProductName, StringComparison.OrdinalIgnoreCase)))
                 return Task.CompletedTask;
 
             var maxId = _products.Max(x => x.ProductId);
@@ -29,15 +30,57 @@ namespace IMS.Plugins.InMemory
 
         public async Task<Product> GetProductsByIdAsync(int productId)
         {
-           var product = await Task.FromResult(_products.First(x => x.ProductId == productId));
-            var newProduct = new Product
-            {
-                ProductId = productId,
-                ProductName = product.ProductName,
-                Price = product.Price,
-                Quantity = product.Quantity,
-            };
+            var product = _products.FirstOrDefault(x => x.ProductId == productId);
+            var newProduct = new Product();
+            CheckProduct(product, newProduct);
             return await Task.FromResult(newProduct);
+        }
+
+        private static void CheckProduct(Product? product, Product newProduct)
+        {
+            /// checking to see if the product is not empty then build up the product
+            if (product != null)
+            {
+                newProduct.ProductId = product.ProductId;
+                newProduct.ProductName = product.ProductName;
+                newProduct.Price = product.Price;
+                newProduct.Quantity = product.Quantity;
+                newProduct.ProductInventories = new List<ProductInventory>();
+                CheckProductInventoris(product, newProduct);
+            }
+        }
+
+        private static void CheckProductInventoris(Product? product, Product newProduct)
+        {
+            /// checking to see if the productinventories  is not empty then build up theProductInventoris
+            if (product!.ProductInventories != null && product.ProductInventories.Count > 0)
+            {
+                foreach (var productInventory in product.ProductInventories)
+                {
+                    var productInv = new ProductInventory()
+                    {
+                        InventoryId = productInventory.InventoryId,
+                        ProductId = productInventory.ProductId,
+                        Product = product,
+                        Inventory = new Inventory(),
+                        InventoryQuantity = productInventory.InventoryQuantity,
+                    };
+                    CheckInventoris(newProduct, productInventory, productInv);
+                }
+            }
+        }
+
+        private static void CheckInventoris(Product newProduct, ProductInventory productInventory, ProductInventory productInv)
+        {
+            /// checking to see if the inventories  is not empty then build up Inventoris
+            if (productInv.Inventory != null)
+            {
+                productInv.Inventory.InventoryId = productInventory.InventoryId;
+                productInv.Inventory.InventoryName = productInventory.Inventory!.InventoryName;
+                productInv.Inventory!.Price = productInventory.Inventory!.Price;
+                productInv.Inventory!.Quantity = productInventory.Inventory!.Quantity;
+            }
+            newProduct.ProductInventories.Add(productInv);
         }
 
         /// <summary>
@@ -53,7 +96,25 @@ namespace IMS.Plugins.InMemory
 
         public Task UpdateProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            return GetDifferentProductbyId(product);
+        }
+
+        private Task GetDifferentProductbyId(Product product)
+        {
+            // dont allow the same inventories to have the same name
+            if (_products.Any(x => x.ProductId != product.ProductId
+                  && x.ProductName.ToLower() == product.ProductName.ToLower()))
+                return Task.CompletedTask;
+
+            var prod = _products.FirstOrDefault(x => x.ProductId == product.ProductId);
+            if (prod != null)
+            {
+                prod.ProductName = product.ProductName;
+                prod.Price = product.Price;
+                prod.Quantity = product.Quantity;
+                prod.ProductInventories = product.ProductInventories;
+            }
+            return Task.CompletedTask;
         }
     }
 }
