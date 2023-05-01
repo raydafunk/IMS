@@ -21,10 +21,12 @@ builder.Services.AddTransient<IViewInventoriesByNameUserCase, ViewInventoriesByN
 builder.Services.AddTransient<IAddInventoryUseCase, AddInventoryUseCase>();
 builder.Services.AddTransient<IEditInventoryUseCase, EditInventoryUseCase>();
 builder.Services.AddTransient<IViewInventoryByIdUseCase, ViewInventoryByIdUseCase>();
+
 builder.Services.AddTransient<IViewProductByNameUserCase, ViewProductByNameUserCase>();
 builder.Services.AddTransient<IAddProductUseCase, AddProductUseCase>();
 builder.Services.AddTransient<IEditProdcutUserCase, EditProdcutUserCase>();
 builder.Services.AddTransient<IViewProductByIdUseCase, ViewProductByIdUseCase>();
+
 builder.Services.AddTransient<IPurchaseInventoryUseCase, PurchaseInventoryUseCase>();
 var app = builder.Build();
 
