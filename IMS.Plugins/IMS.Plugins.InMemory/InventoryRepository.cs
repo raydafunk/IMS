@@ -55,6 +55,11 @@ namespace IMS.Plugins.InMemory
 
         public Task UpdateInventoryAsync(Inventory inventory)
         {
+            return GetDifferentInvetoriesByid(inventory);
+        }
+
+        private Task GetDifferentInvetoriesByid(Inventory inventory)
+        {
             // dont allow the same inventories to have the same name
             if (_inventories.Any(x => x.InventoryId == inventory.InventoryId
                   && x.InventoryName.Equals(inventory.InventoryName, StringComparison.OrdinalIgnoreCase)))
