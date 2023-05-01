@@ -3,6 +3,8 @@ using IMS.Plugins.InMemory;
 using IMS.UseCases.Products;
 using Shouldly;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -45,7 +47,7 @@ namespace IMS.UseCase.Test.Reposistory
         }
 
         [Fact]
-        public async Task GetProductByNameAsync_WhenCalled_ShouldNot_NameObjectIsNotNull()
+        public async Task GetProductByNameAsync_WhenCalled_ShouldNotNameObject_IsNotNull()
         {
             IEnumerable<Product> inventories = new List<Product>() { new Product { ProductId = 1, ProductName = "fdc   ", Quantity = 10, Price = 2 } };
             await _repo.GetProductsByNameAsync("Bike Seat");
@@ -63,11 +65,43 @@ namespace IMS.UseCase.Test.Reposistory
         }
 
         [Fact]
+        public async Task GetProductsByIdAsync_WhenCalled_ShouldNotBeNull()
+        {
+            var productId = 1;
+            await _repo.GetProductsByIdAsync(productId);
+            productId.ShouldBe(productId);  
+        }
+
+        [Fact]
+        public async Task GetProductsByIdAsync_WhenCalled_TheNewProductInventoryObject_ShouldNotBeNull()
+        {
+            var newProductinventoryid = ProductInventory;
+            await _repo.GetProductsByIdAsync(1);
+            newProductinventoryid.ShouldBe(newProductinventoryid);
+        }
+
+        [Fact]
+        public async Task GetProductsByIdAsync_WhenCalled_TheInventoryObject_ShouldNotBeNull()
+        {
+            var newinventoryid = Inventory;
+            await _repo.GetProductsByIdAsync(1);
+            newinventoryid.ShouldBe(newinventoryid);
+        }
+
+        [Fact]
+        public async Task GetProductsByIdAsyn_WhenCalled_ProductObject_IsNotNull()
+        {
+            var productInventories = new List<ProductInventory>() { new ProductInventory { InventoryId = 1 } };
+            await _repo.GetProductsByIdAsync(1);
+
+            productInventories.ShouldBe(productInventories);
+        }
+
+        [Fact]
         public async Task UpdateProductAsyn_WhenCalled_ShouldNotBeNUll()
         {
             var product = MockedProduct;
             await _repo.UpdateProductAsync(product);
-
             product.ShouldNotBeNull();
         }
 
@@ -108,7 +142,40 @@ namespace IMS.UseCase.Test.Reposistory
             }
         }
 
-       
+        private static Inventory Inventory
+        {
+            get
+            {
+                return new Inventory()
+                {
+                    InventoryId = 1,
+                    InventoryName = "Test",
+                    Quantity = 10,
+                    Price = 2
+                };
+            }
+        }
+
+      private static ProductInventory ProductInventory
+        {
+            get
+            {
+                return new ProductInventory()
+                {
+                    ProductId = 101,
+                    Inventory = new Inventory() { InventoryId = 1, InventoryName = "InventoryTestName", Price = 2, Quantity = 1 },
+                    InventoryId= 2,
+                    Product =  new  Product() {
+                        ProductId = 3,
+                        ProductName = "Test 3",
+                        Quantity = 11,
+                        Price = 3
+                    }
+
+                    
+                };
+            }
+        } 
     }
 
 
