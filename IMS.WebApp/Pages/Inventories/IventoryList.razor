@@ -1,6 +1,8 @@
 ﻿
 @page "/inventories"
+@using static IMS.WebApp.Components.CommonComponets.AutoCompeleteComponent;
  @inject NavigationManager NavigationManger
+ @inject IViewInventoriesByNameUserCase ViewInventoriesByNameUserCase
 <h3>IventoryList</h3>
 <br />
 <SearchInventoryComponent 
@@ -12,6 +14,10 @@
           class=" btn btn-primary"
           @onclick="AddInventory">Add Inventory</button>
 
+          <p>
+              <IMS.WebApp.Components.CommonComponets.AutoCompeleteComponent Label="Inventory"
+                 SeracFunction="SerachInventory"></IMS.WebApp.Components.CommonComponets.AutoCompeleteComponent>
+          </p>
 @code {
     private string _searchTerm = string.Empty;
 
@@ -22,5 +28,12 @@
     private void AddInventory()
     {
         NavigationManger.NavigateTo("/addinventory");
+    }
+    private List<ItemViewModel>? SerachInventory(string name)
+    {
+        var list = ViewInventoriesByNameUserCase.ExecuteAsync(name).GetAwaiter().GetResult();
+        if (list == null) return null;
+
+        return list.Select(x => new ItemViewModel { Id = x.InventoryId, Name = x.InventoryName }).ToList();
     }
 }
