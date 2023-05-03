@@ -15,10 +15,15 @@
           @onclick="AddInventory">Add Inventory</button>
 
           <p>
-              <IMS.WebApp.Components.CommonComponets.AutoCompeleteComponent Label="Inventory"
-                 SeracFunction="SerachInventory"></IMS.WebApp.Components.CommonComponets.AutoCompeleteComponent>
+              <IMS.WebApp.Components.CommonComponets.AutoCompeleteComponent 
+                Label="Inventory"
+                SeracFunction="SerachInventory"
+                 OnItemSelected="OnItemSelected">
+             </IMS.WebApp.Components.CommonComponets.AutoCompeleteComponent>
           </p>
+          @selectedItem?.Name
 @code {
+    private ItemViewModel? selectedItem = null;
     private string _searchTerm = string.Empty;
 
     private void OnInventorySearch(string serachTerm)
@@ -35,5 +40,9 @@
         if (list == null) return null;
 
         return list.Select(x => new ItemViewModel { Id = x.InventoryId, Name = x.InventoryName }).ToList();
+    }
+    private void OnItemSelected(ItemViewModel item)
+    {
+        this.selectedItem = item;
     }
 }
