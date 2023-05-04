@@ -1,4 +1,5 @@
 ﻿@page "/purchase"
+@using IMS.CoreBussiness.Entities;
 @using static IMS.WebApp.Components.CommonComponets.AutoCompeleteComponent
 @inject IPurchaseInventoryUseCase PurchaseInventoryUseCase
 @inject IViewInventoriesByNameUserCase ViewInventoriesByNameUserCase
@@ -46,8 +47,8 @@
     private async Task Purchase()
     {
         await PurchaseInventoryUseCase.ExecuteAsync(
-            this.purchaseVM.PONumber,
-            this.selectedInventory,
+            this.purchaseVM.PONumber!,
+            this.selectedInventory!,
             this.purchaseVM.QuantityToPurchase,
             "Frank"
         );

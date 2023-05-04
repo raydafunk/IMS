@@ -2,6 +2,8 @@ using IMS.Plugins.InMemory;
 using IMS.UseCases.Inventories;
 using IMS.UseCases.Inventories.Interfaces;
 using IMS.UseCases.PluginInterfaces;
+using IMS.UseCases.Produce;
+using IMS.UseCases.Produce.Interface;
 using IMS.UseCases.Products;
 using IMS.UseCases.Products.Interfaces;
 using IMS.UseCases.Purchase;
@@ -16,6 +18,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<IInVentoryRespository, InventoryRepository>();
 builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 builder.Services.AddSingleton<IInVentoryTransactionRespository, InventoryTransactionRespository>();
+builder.Services.AddSingleton<IProductTransactionRepository, ProductTransactionRespository>();
 
 builder.Services.AddTransient<IViewInventoriesByNameUserCase, ViewInventoriesByNameUserCase>();
 builder.Services.AddTransient<IAddInventoryUseCase, AddInventoryUseCase>();
@@ -28,6 +31,7 @@ builder.Services.AddTransient<IEditProdcutUserCase, EditProdcutUserCase>();
 builder.Services.AddTransient<IViewProductByIdUseCase, ViewProductByIdUseCase>();
 
 builder.Services.AddTransient<IPurchaseInventoryUseCase, PurchaseInventoryUseCase>();
+builder.Services.AddTransient<IProduceProductUseCase, ProduceProductUseCase>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

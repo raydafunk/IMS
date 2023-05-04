@@ -1,4 +1,4 @@
-﻿using IMS.CoreBussiness;
+﻿using IMS.CoreBussiness.Entities;
 using IMS.Plugins.InMemory;
 using Shouldly;
 using System.Collections.Generic;

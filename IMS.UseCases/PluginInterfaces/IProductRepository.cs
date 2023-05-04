@@ -1,4 +1,4 @@
-﻿using IMS.UseCases.Products;
+﻿using IMS.CoreBussiness.Entities;
 
 namespace IMS.UseCases.PluginInterfaces
 {

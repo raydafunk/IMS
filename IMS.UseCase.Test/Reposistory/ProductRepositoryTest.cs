@@ -1,6 +1,5 @@
-﻿using IMS.CoreBussiness;
+﻿using IMS.CoreBussiness.Entities;
 using IMS.Plugins.InMemory;
-using IMS.UseCases.Products;
 using Shouldly;
 using System.Collections.Generic;
 using System.Linq;

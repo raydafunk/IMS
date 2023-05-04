@@ -1,4 +1,4 @@
-﻿using IMS.CoreBussiness;
+﻿using IMS.CoreBussiness.Entities;
 using IMS.UseCases.Inventories;
 using IMS.UseCases.PluginInterfaces;
 using NSubstitute;
