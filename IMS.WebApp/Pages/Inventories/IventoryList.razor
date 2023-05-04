@@ -1,5 +1,6 @@
 ﻿
 @page "/inventories"
+@using static IMS.WebApp.Components.CommonComponets.AutoCompeleteComponent;
  @inject NavigationManager NavigationManger
 <h3>IventoryList</h3>
 <br />
@@ -12,7 +13,9 @@
           class=" btn btn-primary"
           @onclick="AddInventory">Add Inventory</button>
 
+          
 @code {
+    private ItemViewModel? selectedItem = null;
     private string _searchTerm = string.Empty;
 
     private void OnInventorySearch(string serachTerm)
@@ -23,4 +26,5 @@
     {
         NavigationManger.NavigateTo("/addinventory");
     }
+    
 }

@@ -1,0 +1,71 @@
+﻿@page "/purchase"
+@using static IMS.WebApp.Components.CommonComponets.AutoCompeleteComponent
+@inject IPurchaseInventoryUseCase PurchaseInventoryUseCase
+@inject IViewInventoriesByNameUserCase ViewInventoriesByNameUserCase
+@inject IViewInventoryByIdUseCase ViewInventoryByIdUseCase
+
+<h3>PurchaseInventory</h3>
+<br />
+<EditForm Model="purchaseVM" OnValidSubmit="Purchase">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+
+    <div class="form-group">
+        <label for="Po"> Purcahse Order #</label>
+        <InputText id="po" @bind-Value="purchaseVM.PONumber" class="form-control"></InputText>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <AutoCompeleteComponent Label="Inventory to Purchase"
+                                        SeracFunction="SerachInventory"
+                                        OnItemSelected="OnItemSelected">
+                </AutoCompeleteComponent>
+                <input type="hidden" value="@purchaseVM.InvenrtoryId" />
+                @if (purchaseVM.InvenrtoryId > 0 && purchaseVM.InventoryPrice > 0)
+                {
+                    <text>Price:</text>
+                    @purchaseVM.InventoryPrice.ToString("c");
+                }
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="qty"> Quantity</label>
+        <InputNumber id="qty" @bind-Value="purchaseVM.QuantityToPurchase" class="form-control"></InputNumber>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary"> Purchase</button>
+</EditForm>
+@code {
+    private PurchaseVM purchaseVM = new PurchaseVM();
+    private Inventory? selectedInventory = null;
+
+    private async Task Purchase()
+    {
+        await PurchaseInventoryUseCase.ExecuteAsync(
+            this.purchaseVM.PONumber,
+            this.selectedInventory,
+            this.purchaseVM.QuantityToPurchase,
+            "Frank"
+        );
+        this.purchaseVM = new PurchaseVM();
+        this.selectedInventory = null;
+    }
+
+    private List<ItemViewModel>? SerachInventory(string name)
+    {
+        var list = ViewInventoriesByNameUserCase.ExecuteAsync(name).GetAwaiter().GetResult();
+        if (list == null) return null;
+
+        return list.Select(x => new ItemViewModel { Id = x.InventoryId, Name = x.InventoryName }).ToList();
+    }
+    private async Task OnItemSelected(ItemViewModel item)
+    {
+        this.selectedInventory = await ViewInventoryByIdUseCase.ExeuteAysnc(item.Id);
+        purchaseVM.InvenrtoryId = item.Id;
+        purchaseVM.InventoryPrice = (await ViewInventoryByIdUseCase.ExeuteAysnc(item.Id)).Price;
+    }
+}

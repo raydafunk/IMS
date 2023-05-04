@@ -26,4 +26,8 @@
     <None Include="Components\Inventories\SearchandDisplayInventoriesComponent.razor" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\Purchase\" />
+  </ItemGroup>
+
 </Project>
