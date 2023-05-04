@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IMS.UseCase.Test.Reposistory
 {
-    public class InventoryTransactionTypeRepositoryTest
+    public class InventoryTransactionRepositoryTest
     {
     }
 }
