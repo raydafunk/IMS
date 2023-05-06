@@ -24,7 +24,11 @@ namespace IMS.UseCases.Purchase
             //inseret a record in the transition table 
             //TODO: Create intergation test when i have setup a database
             _inVentoryTransactionRespository.PurchaseAsync(poNumber, inventory, quantity, doneby, inventory.Price);
+            await IncreaseInventory(inventory, quantity);
+        }
 
+        private async Task IncreaseInventory(Inventory inventory, int quantity)
+        {
             // increase the quantity
             inventory.Quantity += quantity;
             await _inVentoryRespository.UpdateInventoryAsync(inventory);
