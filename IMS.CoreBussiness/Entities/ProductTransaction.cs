@@ -22,5 +22,6 @@ namespace IMS.CoreBussiness.Entities
         [Required]
         public string Doneby { get; set; } = string.Empty;
         public Product? Product { get; set; }
+        public string SONumber { get; set; }
     }
 }
