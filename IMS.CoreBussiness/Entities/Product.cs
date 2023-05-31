@@ -1,8 +1,7 @@
-﻿using IMS.CoreBussiness;
-using IMS.CoreBussiness.Validations;
+﻿using IMS.CoreBussiness.Validations;
 using System.ComponentModel.DataAnnotations;
 
-namespace IMS.UseCases.Products
+namespace IMS.CoreBussiness.Entities
 {
     public class Product
     {

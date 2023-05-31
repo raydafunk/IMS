@@ -1,4 +1,4 @@
-﻿using IMS.UseCases.Products;
+﻿using IMS.CoreBussiness.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,19 +13,19 @@ namespace IMS.CoreBussiness.Validations
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
             if (validationContext.ObjectInstance is Product product && !VaildatePricing(product))
-                return new ValidationResult($"The product's price is less than the inventories cost:{TotalInventorisCost(product).ToString("c")}!",
-                    new List<string>() { validationContext.MemberName });
+                return new ValidationResult($"The product's price is less than the inventories cost:{TotalInventorisCost(product):c}!",
+                    new List<string>() { validationContext.MemberName! });
 
             return ValidationResult.Success;
         }
-        private double TotalInventorisCost(Product product)
+        private  static double TotalInventorisCost(Product product)
         {
             if(product == null || product.ProductInventories == null) return 0;
 
             return product.ProductInventories.Sum(x => x.Inventory?.Price * x.InventoryQuantity ?? 0);
         }
 
-        private bool VaildatePricing(Product product)
+        private static bool VaildatePricing(Product product)
         {
             if(product.ProductInventories == null || product.ProductInventories.Count <= 0) return true;
 

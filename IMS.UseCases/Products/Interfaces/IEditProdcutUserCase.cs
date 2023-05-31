@@ -1,4 +1,6 @@
-﻿namespace IMS.UseCases.Products.Interfaces
+﻿using IMS.CoreBussiness.Entities;
+
+namespace IMS.UseCases.Products.Interfaces
 {
     public interface IEditProdcutUserCase
     {

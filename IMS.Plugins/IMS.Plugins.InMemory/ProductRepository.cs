@@ -1,6 +1,5 @@
-﻿using IMS.CoreBussiness;
+﻿using IMS.CoreBussiness.Entities;
 using IMS.UseCases.PluginInterfaces;
-using IMS.UseCases.Products;
 
 namespace IMS.Plugins.InMemory
 {

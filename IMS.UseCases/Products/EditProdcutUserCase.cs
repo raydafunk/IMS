@@ -1,4 +1,5 @@
-﻿using IMS.UseCases.PluginInterfaces;
+﻿using IMS.CoreBussiness.Entities;
+using IMS.UseCases.PluginInterfaces;
 using IMS.UseCases.Products.Interfaces;
 using System;
 using System.Collections.Generic;

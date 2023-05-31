@@ -1,4 +1,5 @@
-﻿<div class="card">
+﻿@using IMS.CoreBussiness.Entities;
+<div class="card">
   <div class="card-body">
  <SearchandDisplayInventoriesComponent OnInventorySelected="OnInventorySelected"></SearchandDisplayInventoriesComponent>
 @if(this.Product.ProductInventories != null && this.Product.ProductInventories.Count > 0)

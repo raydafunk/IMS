@@ -1,12 +1,15 @@
 ﻿@page "/purchase"
+
+@using IMS.CoreBussiness.Entities;
 @using static IMS.WebApp.Components.CommonComponets.AutoCompeleteComponent
 @inject IPurchaseInventoryUseCase PurchaseInventoryUseCase
 @inject IViewInventoriesByNameUserCase ViewInventoriesByNameUserCase
 @inject IViewInventoryByIdUseCase ViewInventoryByIdUseCase
 
+@inject IJSRuntime JSRuntime
 <h3>PurchaseInventory</h3>
 <br />
-<EditForm Model="purchaseVM" OnValidSubmit="Purchase">
+<EditForm id="purchase-form" Model="purchaseVM" OnValidSubmit="Purchase">
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>
 
@@ -43,11 +46,20 @@
     private PurchaseVM purchaseVM = new PurchaseVM();
     private Inventory? selectedInventory = null;
 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            JSRuntime.InvokeVoidAsync("PreventFormSubmittion", "purchase-form");
+        }
+    }
+
     private async Task Purchase()
     {
         await PurchaseInventoryUseCase.ExecuteAsync(
-            this.purchaseVM.PONumber,
-            this.selectedInventory,
+            this.purchaseVM.PONumber!,
+            this.selectedInventory!,
             this.purchaseVM.QuantityToPurchase,
             "Frank"
         );

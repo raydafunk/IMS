@@ -1,4 +1,4 @@
-﻿using IMS.CoreBussiness;
+﻿using IMS.CoreBussiness.Entities;
 
 namespace IMS.UseCases.Inventories.Interfaces
 {

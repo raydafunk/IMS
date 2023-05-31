@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IMS.CoreBussiness
+namespace IMS.CoreBussiness.Entities
 {
     public class Inventory
     {

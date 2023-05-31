@@ -1,8 +1,6 @@
-﻿using IMS.UseCases.Products;
-
-namespace IMS.CoreBussiness
+﻿namespace IMS.CoreBussiness.Entities
 {
-    public  class ProductInventory
+    public class ProductInventory
     {
         public int ProductId { get; set; }
 
