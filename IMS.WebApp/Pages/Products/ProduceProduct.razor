@@ -55,7 +55,10 @@
     private async Task OnItemSelected(ItemViewModel item)
     {
         this.selectProduct = await ViewProductByIdUseCase.ExeuteAysnc(item.Id);
+
         produceVM.ProductId = item.Id;
+        produceVM.Product = this.selectProduct;
+
     }
 
     private async Task Produce()
