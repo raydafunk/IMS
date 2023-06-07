@@ -30,7 +30,7 @@
     public string Label { get; set; } = string.Empty;
 
     [Parameter]
-    public Func<string, List<ItemViewModel>>? SeracFunction { get; set; }
+    public Func<string, Task<List<ItemViewModel>>>? SeracFunction { get; set; }
 
     [Parameter]
     public EventCallback<ItemViewModel> OnItemSelected { get; set; }
@@ -54,9 +54,7 @@
             {
                 if (this.selectedItem?.Name != _userInput)
                 {
-                    searchResults = SeracFunction(_userInput);
-
-                    this.selectedItem = null;
+                    ViewItemsAsync();
                 }
 
                 else
@@ -65,6 +63,14 @@
                 }
             }
         }
+    }
+    private async Task ViewItemsAsync()
+    {
+        if (SeracFunction != null)
+
+         searchResults =  await SeracFunction(_userInput);
+        this.selectedItem = null;
+        StateHasChanged();
     }
 
     private void OnSelectItem(ItemViewModel? item)

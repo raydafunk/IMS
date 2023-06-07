@@ -17,7 +17,7 @@ namespace IMS.WebApp.ViewModlesValidations
                         pi.InventoryQuantity * produceViewModel.QuantityToProduct > pi.InventoryQuantity)
                     {
                         return new ValidationResult($"The Inventory ({pi.Inventory.InventoryName}) is not enough to produce {produceViewModel.QuantityToProduct} produts",
-                            new[] { validationContext.MemberName });
+                            new[] { validationContext.MemberName }!);
 
                     }
                 }

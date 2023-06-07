@@ -14,9 +14,9 @@ namespace IMS.UseCases.Produce
             this._productRepository = productRepository;
             this._productTransactionRepository = productTransactionRepository;
         }
-        public async Task ExecuteAsync(string salesOrderNumber, CoreBussiness.Entities.Product product, int quantiy, string doneBy)
+        public async Task ExecuteAsync(string salesOrderNumber, CoreBussiness.Entities.Product product, int quantiy, double unitPrice, string doneBy)
         {
-            await this._productTransactionRepository.SellProductAsync(salesOrderNumber, product, quantiy, doneBy);
+            await this._productTransactionRepository.SellProductAsync(salesOrderNumber, product, quantiy, unitPrice, doneBy);
 
             product.Quantity -= quantiy;
             await this._productRepository.UpdateProductAsync(product);
