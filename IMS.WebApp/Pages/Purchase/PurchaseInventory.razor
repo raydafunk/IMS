@@ -67,9 +67,9 @@
         this.selectedInventory = null;
     }
 
-    private List<ItemViewModel>? SerachInventory(string name)
+    private async  Task <List<ItemViewModel>?> SerachInventory(string name)
     {
-        var list = ViewInventoriesByNameUserCase.ExecuteAsync(name).GetAwaiter().GetResult();
+        var list =  await ViewInventoriesByNameUserCase.ExecuteAsync(name);
         if (list == null) return null;
 
         return list.Select(x => new ItemViewModel { Id = x.InventoryId, Name = x.InventoryName }).ToList();
@@ -80,4 +80,5 @@
         purchaseVM.InvenrtoryId = item.Id;
         purchaseVM.InventoryPrice = (await ViewInventoryByIdUseCase.ExeuteAysnc(item.Id)).Price;
     }
+  
 }
