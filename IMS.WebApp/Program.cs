@@ -8,6 +8,8 @@ using IMS.UseCases.Products;
 using IMS.UseCases.Products.Interfaces;
 using IMS.UseCases.Purchase;
 using IMS.UseCases.Purchase.Interface;
+using IMS.UseCases.Reports;
+using IMS.UseCases.Reports.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,8 @@ builder.Services.AddTransient<IViewProductByIdUseCase, ViewProductByIdUseCase>()
 builder.Services.AddTransient<IPurchaseInventoryUseCase, PurchaseInventoryUseCase>();
 builder.Services.AddTransient<IProduceProductUseCase, ProduceProductUseCase>();
 builder.Services.AddTransient<ISellProductUseCase, SellProductUseCase>();
+builder.Services.AddTransient<ISearchInventoryTranscationUseCase, SearchInventoryTranscationUseCase>();
+builder.Services.AddTransient<ISearchProductTransactionUseCase,  SearchProductTransactionUseCase>();    
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

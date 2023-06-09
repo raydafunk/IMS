@@ -21,6 +21,36 @@ namespace IMS.Plugins.InMemory
             this._inVentoryRespository = inVentoryRespository;
         }
 
+        public async Task<IEnumerable<ProductTransaction>> GetProductTranscationAsync(string productName, DateTime? dateFrom, DateTime? dateTo, ProductTransactionType? transactionTYpe)
+        {
+            var products = (await _productRepository.GetProductsByNameAsync(string.Empty)).ToList();
+
+            var query = from it in this._productTransactions
+                        join inv in products on it.ProductId equals inv.ProductId
+                        where
+                            (string.IsNullOrWhiteSpace(productName) || inv.ProductName.ToLower().IndexOf(productName.ToLower()) >= 0)
+                            &&
+                            (!dateFrom.HasValue || it.TranasactionDate >= dateFrom.Value.Date) &&
+                            (!dateTo.HasValue || it.TranasactionDate <= dateTo.Value.Date) &&
+                            (!transactionTYpe.HasValue || it.ActivityType == transactionTYpe)
+                        select new ProductTransaction
+                        {
+                            Product = inv,
+                            ProductTransactionId = it.ProductTransactionId,
+                            SONumber = it.SONumber,
+                            ProductionNumber = it.ProductionNumber,
+                            ProductId = it.ProductId,
+                            QuantityBefore = it.QuantityBefore,
+                            ActivityType = it.ActivityType,
+                            QuantityAfter = it.QuantityAfter,
+                            TranasactionDate = it.TranasactionDate,
+                            Doneby = it.Doneby,
+                            UnitPrice = it.UnitPrice,
+                        };
+
+            return query;
+        }
+
         /// <summary>
         /// Mehtod for producing Products first we get the product id then we add the inventories and the transcations
         /// </summary>
