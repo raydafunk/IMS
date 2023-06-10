@@ -14,7 +14,7 @@ namespace IMS.CoreBussiness.Entities
         [Required]
         public int QuantityBefore { get; set; }
         [Required]
-        public InventoryTransactionTYpe ActivityType { get; set; }
+        public InventoryTransactionType ActivityType { get; set; }
         [Required]
         public int QuantityAfter { get; set; }
         public double UnitPrice { get; set; }
