@@ -13,7 +13,7 @@ namespace IMS.Plugins.InMemory
         {
             this._inVentoryRespository = inVentoryRespository;
         }
-        public async Task<IEnumerable<InventoryTransaction>> GetInventoryTranscationAsync(string inventoryName, DateTime? datefrom, DateTime? dateto, InventoryTransactionTYpe? transactionTYpe)
+        public async Task<IEnumerable<InventoryTransaction>> GetInventoryTranscationAsync(string inventoryName, DateTime? datefrom, DateTime? dateto, InventoryTransactionType? transactionTYpe)
         {
            var inventories =  (await _inVentoryRespository.GetInvetoriesByNameAsync(string.Empty)).ToList();
 
@@ -51,7 +51,7 @@ namespace IMS.Plugins.InMemory
                 ProductionNumber= productionNumber,
                 InventoryId = inventory.InventoryId,
                 QuantityBefore = inventory.Quantity,
-                ActivityType = InventoryTransactionTYpe.ProduceProduct,
+                ActivityType = InventoryTransactionType.ProduceProduct,
                 QuantityAfter = inventory.Quantity - quantitytoCosume,
                 TranasactionDate = DateTime.Now,
                 Doneby = doneby,
@@ -67,7 +67,7 @@ namespace IMS.Plugins.InMemory
                 PONumber = poNumber,
                 InventoryId = inventory.InventoryId,
                 QuantityBefore = inventory.Quantity,
-                ActivityType = InventoryTransactionTYpe.PurchaseInventory,
+                ActivityType = InventoryTransactionType.PurchaseInventory,
                 QuantityAfter = inventory.Quantity + quantity,
                 TranasactionDate= DateTime.Now,
                 Doneby= doneby,

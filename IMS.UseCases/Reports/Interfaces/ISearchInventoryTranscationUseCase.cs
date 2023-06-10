@@ -5,6 +5,6 @@ namespace IMS.UseCases.Reports.Interfaces
 {
     public interface ISearchInventoryTranscationUseCase
     {
-        Task<IEnumerable<InventoryTransaction>> ExeuteAsync(string inventoryName, DateTime? datefrom, DateTime? dateto, InventoryTransactionTYpe? transactionTYpe);
+        Task<IEnumerable<InventoryTransaction>> ExeuteAsync(string inventoryName, DateTime? datefrom, DateTime? dateto, InventoryTransactionType? transactionTYpe);
     }
 }
