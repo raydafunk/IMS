@@ -44,7 +44,7 @@ namespace IMS.Plugins.InMemory
                            
         }
 
-        public void ProduceInventoryAsync(string productionNumber, Inventory inventory, int quantitytoCosume, string doneby, double price)
+        public Task ProduceInventoryAsync(string productionNumber, Inventory inventory, int quantitytoCosume, string doneby, double price)
         {
             this._inventoryTransactions.Add(new InventoryTransaction
             {
@@ -57,10 +57,10 @@ namespace IMS.Plugins.InMemory
                 Doneby = doneby,
                 UnitPrice = price
             });
-
+            return Task.CompletedTask;
         }
 
-        public void PurchaseAsync(string poNumber, Inventory inventory, int quantity, string doneby, double price)
+        public Task PurchaseAsync(string poNumber, Inventory inventory, int quantity, string doneby, double price)
         {
             this._inventoryTransactions.Add(new InventoryTransaction
             {
@@ -73,7 +73,7 @@ namespace IMS.Plugins.InMemory
                 Doneby= doneby,
                 UnitPrice = price   
             });
-
+            return Task.CompletedTask;
         }
     }
 }
