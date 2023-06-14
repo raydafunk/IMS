@@ -3,7 +3,7 @@ using IMS.CoreBussiness.Enums;
 using IMS.UseCases.PluginInterfaces;
 using Microsoft.VisualBasic;
 
-namespace IMS.Plugins.InMemory
+namespace IMS.Plugins.EFCoreSqlServer
 {
     public class InventoryTransactionRespository : IInVentoryTransactionRespository
     {

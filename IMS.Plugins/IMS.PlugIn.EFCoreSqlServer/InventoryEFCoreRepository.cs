@@ -1,6 +1,7 @@
 ﻿using IMS.CoreBussiness.Entities;
 using IMS.UseCases.PluginInterfaces;
 using Microsoft.EntityFrameworkCore;
+
 namespace IMS.PlugIn.EFCoreSqlServer
 {
     public class InventoryEFCoreRepository : IInVentoryRespository

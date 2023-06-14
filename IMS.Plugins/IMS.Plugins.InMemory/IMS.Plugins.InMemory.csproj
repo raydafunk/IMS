@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\IMS.UseCases\IMS.UseCases.csproj" />
+    <ProjectReference Include="..\IMS.PlugIn.EFCoreSqlServer\IMS.PlugIn.EFCoreSqlServer.csproj" />
   </ItemGroup>
 
 </Project>

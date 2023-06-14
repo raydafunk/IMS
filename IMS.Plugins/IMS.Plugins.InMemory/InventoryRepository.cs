@@ -3,7 +3,7 @@ using IMS.UseCases.PluginInterfaces;
 using System.Net.WebSockets;
 using System.Security.Cryptography.X509Certificates;
 
-namespace IMS.Plugins.InMemory
+namespace IMS.Plugins.EFCoreSqlServer
 {
     public class InventoryRepository : IInVentoryRespository
     {

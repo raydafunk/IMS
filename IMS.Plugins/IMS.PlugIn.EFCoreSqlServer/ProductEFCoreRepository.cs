@@ -3,7 +3,7 @@ using IMS.PlugIn.EFCoreSqlServer;
 using IMS.UseCases.PluginInterfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace IMS.Plugins.InMemory
+namespace IMS.Plugins.EFCoreSqlServer
 {
     public class ProductEFCoreRepository : IProductRepository
     {

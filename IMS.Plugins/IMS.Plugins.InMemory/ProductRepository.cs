@@ -1,7 +1,7 @@
 ﻿using IMS.CoreBussiness.Entities;
 using IMS.UseCases.PluginInterfaces;
 
-namespace IMS.Plugins.InMemory
+namespace IMS.Plugins.EFCoreSqlServer
 {
     public class ProductRepository : IProductRepository
     {

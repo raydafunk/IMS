@@ -1,5 +1,5 @@
 using IMS.PlugIn.EFCoreSqlServer;
-using IMS.Plugins.InMemory;
+using IMS.Plugins.EFCoreSqlServer;
 using IMS.UseCases.Inventories;
 using IMS.UseCases.Inventories.Interfaces;
 using IMS.UseCases.PluginInterfaces;

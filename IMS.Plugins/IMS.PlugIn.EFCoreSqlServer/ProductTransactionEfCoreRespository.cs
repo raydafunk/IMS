@@ -2,23 +2,22 @@
 using IMS.CoreBussiness.Enums;
 using IMS.PlugIn.EFCoreSqlServer;
 using IMS.UseCases.PluginInterfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace IMS.Plugins.EFCoreSqlServer
 {
-    public class ProductTransactionRespository : IProductTransactionRepository
+    public class ProductTransactionEfCoreRespository : IProductTransactionRepository
     {
-      
+        private readonly List<ProductTransaction> _productTransactions = new();
 
         private readonly IProductRepository _productRepository;
         private readonly IInVentoryTransactionRespository _inventoryTranscationRepo;
         private readonly IInVentoryRespository _inVentoryRespository;
         private readonly IMSDbContext _db;
 
-        public ProductTransactionRespository(IProductRepository productRepository,
+        public ProductTransactionEfCoreRespository(IProductRepository productRepository,
               IInVentoryTransactionRespository inventoryRepository,
               IInVentoryRespository inVentoryRespository,
-              IMSDbContext db  )
+              IMSDbContext db)
         {
             this._productRepository = productRepository;
             this._inventoryTranscationRepo = inventoryRepository;
@@ -28,18 +27,32 @@ namespace IMS.Plugins.EFCoreSqlServer
 
         public async Task<IEnumerable<ProductTransaction>> GetProductTranscationAsync(string productName, DateTime? dateFrom, DateTime? dateTo, ProductTransactionType? transactionTYpe)
         {
+            var products = (await _productRepository.GetProductsByNameAsync(string.Empty)).ToList();
 
-            var query = from pt in this._db.ProductTransactions
-                        join prod in this._db.Products on pt.ProductId equals prod.ProductId
+            var query = from it in this._productTransactions
+                        join inv in products on it.ProductId equals inv.ProductId
                         where
-                            (string.IsNullOrWhiteSpace(productName) || prod.ProductName.ToLower().IndexOf(productName.ToLower()) >= 0)
+                            (string.IsNullOrWhiteSpace(productName) || inv.ProductName.ToLower().IndexOf(productName.ToLower()) >= 0)
                             &&
-                            (!dateFrom.HasValue || pt.TranasactionDate >= dateFrom.Value.Date) &&
-                            (!dateTo.HasValue || pt.TranasactionDate <= dateTo.Value.Date) &&
-                            (!transactionTYpe.HasValue || pt.ActivityType == transactionTYpe)
-                        select pt;
+                            (!dateFrom.HasValue || it.TranasactionDate >= dateFrom.Value.Date) &&
+                            (!dateTo.HasValue || it.TranasactionDate <= dateTo.Value.Date) &&
+                            (!transactionTYpe.HasValue || it.ActivityType == transactionTYpe)
+                        select new ProductTransaction
+                        {
+                            Product = inv,
+                            ProductTransactionId = it.ProductTransactionId,
+                            SONumber = it.SONumber,
+                            ProductionNumber = it.ProductionNumber,
+                            ProductId = it.ProductId,
+                            QuantityBefore = it.QuantityBefore,
+                            ActivityType = it.ActivityType,
+                            QuantityAfter = it.QuantityAfter,
+                            TranasactionDate = it.TranasactionDate,
+                            Doneby = it.Doneby,
+                            UnitPrice = it.UnitPrice,
+                        };
 
-            return await query.Include(x => x.Product).ToListAsync();
+            return query;
         }
 
         /// <summary>
@@ -57,9 +70,9 @@ namespace IMS.Plugins.EFCoreSqlServer
             addproducetranscations(productionNumber, product, quantity, doneby);
         }
 
-        public  async Task SellProductAsync(string salesOrderNumber, Product product, int quantiy, double unitPrice, string doneBy)
+        public Task SellProductAsync(string salesOrderNumber, Product product, int quantiy, double unitPrice, string doneBy)
         {
-            this._db.ProductTransactions.Add(new ProductTransaction
+            this._productTransactions.Add(new ProductTransaction
             {
                 ActivityType = ProductTransactionType.SellProduct,
                 SONumber = salesOrderNumber,
@@ -72,13 +85,13 @@ namespace IMS.Plugins.EFCoreSqlServer
 
 
             });
-            await this._db.SaveChangesAsync();
+            return Task.CompletedTask;
         }
 
         private void addproducetranscations(string productionNumber, Product product, int quantity, string doneby)
         {
             //// add produce  transcations
-            this._db.ProductTransactions.Add(new ProductTransaction
+            this._productTransactions.Add(new ProductTransaction
             {
                 ProductionNumber = productionNumber,
                 ProductId = product.ProductId,
@@ -97,7 +110,7 @@ namespace IMS.Plugins.EFCoreSqlServer
                 foreach (var pi in prod.ProductInventories)
                 {
                     //adding inventories transcations
-                    await this._inventoryTranscationRepo.ProduceInventoryAsync(productionNumber,
+                     await this._inventoryTranscationRepo.ProduceInventoryAsync(productionNumber,
                         pi.Inventory!,
                         pi.InventoryQuantity * quantity,
                         doneby,
