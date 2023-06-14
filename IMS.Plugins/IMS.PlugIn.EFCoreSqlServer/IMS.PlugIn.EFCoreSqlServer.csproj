@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\IMS.CoreBussiness\IMS.CoreBussiness.csproj" />
+    <ProjectReference Include="..\..\IMS.UseCases\IMS.UseCases.csproj" />
   </ItemGroup>
 
 </Project>

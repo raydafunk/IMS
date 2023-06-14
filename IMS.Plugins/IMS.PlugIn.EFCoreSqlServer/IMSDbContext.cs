@@ -5,10 +5,14 @@ namespace IMS.PlugIn.EFCoreSqlServer
 {
     public class IMSDbContext : DbContext
     {
-        public DbSet<Inventory>? Inventories { get; set; }
-        public DbSet<Product>? Products { get; set; }
+        public IMSDbContext(DbContextOptions options) : base(options)
+        {
+                
+        }
+        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<ProductInventory>? ProductInventories { get; set; }
-        public DbSet<InventoryTransaction>? InventoryTransactions { get; set; }
+        public DbSet<InventoryTransaction> InventoryTransactions { get; set; }
         public DbSet<ProductTransaction> ProductTransactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,7 +41,7 @@ namespace IMS.PlugIn.EFCoreSqlServer
             modelBuilder.Entity<Product>().HasData(
 
                 new Product() { ProductId = 1, ProductName = "Bike", Quantity = 10, Price = 150 },
-                new Product() { ProductId = 1, ProductName = "Car", Quantity = 5, Price = 25000 }
+                new Product() { ProductId = 2, ProductName = "Car", Quantity = 5, Price = 25000 }
                 );
             modelBuilder.Entity<ProductInventory>().HasData(
 
