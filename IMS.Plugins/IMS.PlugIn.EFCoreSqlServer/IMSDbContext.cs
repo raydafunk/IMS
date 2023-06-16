@@ -5,7 +5,7 @@ namespace IMS.PlugIn.EFCoreSqlServer
 {
     public class IMSDbContext : DbContext
     {
-        public IMSDbContext(DbContextOptions options) : base(options)
+        public IMSDbContext(DbContextOptions<IMSDbContext> options) : base(options)
         {
                 
         }

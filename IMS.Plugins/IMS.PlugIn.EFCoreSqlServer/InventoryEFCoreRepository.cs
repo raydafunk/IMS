@@ -6,16 +6,24 @@ namespace IMS.PlugIn.EFCoreSqlServer
 {
     public class InventoryEFCoreRepository : IInVentoryRespository
     {
-        private readonly IMSDbContext _db;
-        public InventoryEFCoreRepository(IMSDbContext db)
+        private readonly IDbContextFactory<IMSDbContext> _contextFactory;
+
+        public InventoryEFCoreRepository(IDbContextFactory<IMSDbContext> contextFactory)
         {
-            _db = db;
+            this._contextFactory = contextFactory;
         }
         // add the inventory 
         public async Task AddInventoryAsync(Inventory inventory)
         {
-            this._db.Inventories.Add(inventory);
-            await _db.SaveChangesAsync();
+            using (var db = this._contextFactory.CreateDbContextAsync())
+            {
+                db.Inventories.Add(inventory);
+
+                await db.SaveChangesAsync();
+            }
+             
+            
+           
         }
 
         //get by name
