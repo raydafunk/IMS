@@ -15,27 +15,27 @@ namespace IMS.PlugIn.EFCoreSqlServer
         // add the inventory 
         public async Task AddInventoryAsync(Inventory inventory)
         {
-            using (var db = this._contextFactory.CreateDbContextAsync())
-            {
-                db.Inventories.Add(inventory);
+            using var db = this._contextFactory.CreateDbContext();
+            db.Inventories.Add(inventory);
 
-                await db.SaveChangesAsync();
-            }
-             
-            
-           
+            await db.SaveChangesAsync();
+
+
+
         }
 
         //get by name
         public async Task<IEnumerable<Inventory>> GetInvetoriesByNameAsync(string name)
         {
-            return await this._db.Inventories.Where(x => x.InventoryName
+            using var db = this._contextFactory.CreateDbContext();
+            return await db.Inventories.Where(x => x.InventoryName
             .ToLower().IndexOf(name.ToLower()) >= 0).ToListAsync();
         }
 
         public async Task<Inventory> GetInvetoriesByIdAsync(int inventoryid)
         {
-           var invetnory = await this._db.Inventories.FindAsync(inventoryid);
+            using var db = this._contextFactory.CreateDbContext();
+            var invetnory = await db.Inventories.FindAsync(inventoryid);
             if(invetnory != null) return invetnory;
 
             return new Inventory();
@@ -45,14 +45,15 @@ namespace IMS.PlugIn.EFCoreSqlServer
 
         public async Task UpdateInventoryAsync(Inventory inventory)
         {
-            var inv = await _db.Inventories.FindAsync(inventory.InventoryId);
+            using var db = this._contextFactory.CreateDbContext();
+            var inv = await db.Inventories.FindAsync(inventory.InventoryId);
             if(inv != null) 
             { 
                 inv.InventoryName = inventory.InventoryName;
                 inv.Price = inventory.Price;
                 inv.Quantity = inventory.Quantity;
                 
-                await _db.SaveChangesAsync();
+                await db.SaveChangesAsync();
             }
         }
     }
